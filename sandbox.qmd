@@ -20,7 +20,7 @@ https://observablehq.com/@observablehq/sqlite-starter
 ```{ojs}
 //| echo: false
 
-db = FileAttachment("testing.db").sqlite()
+db = FileAttachment("data/testing.db").sqlite()
 viewof dbTable = Inputs.select((await db.describe()).value.map(d => d.name), { label: "Table" })
 
 ```
