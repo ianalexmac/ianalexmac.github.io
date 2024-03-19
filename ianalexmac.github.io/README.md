@@ -1,5 +1,5 @@
-# {{cookiecutter.project_name}}
-{{cookiecutter.project_short_description}}
+# ianalexmac.github.io
+a quick test of a personal website
 
 
 ## Preview and Render Locally
