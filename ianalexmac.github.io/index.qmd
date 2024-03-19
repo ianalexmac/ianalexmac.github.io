@@ -1,5 +1,5 @@
 ---
-title: "ianalexmac.github.io}"
+title: "ianalexmac.github.io"
 subtitle: "A Website Made with Quarto"
 ---
 
