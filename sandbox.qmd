@@ -1,0 +1,107 @@
+---
+title: "Sandbox"
+subtite: "Come play in the mud"
+output:
+  quarto::quarto_html:
+    pre_processor: quarto::observable
+---
+
+
+
+```{ojs}
+//| echo: false
+
+stdlib = require("@observablehq/stdlib")
+// aq = require('arquero')
+
+```
+
+https://observablehq.com/@observablehq/sqlite-starter
+```{ojs}
+//| echo: false
+
+db = FileAttachment("testing.db").sqlite()
+viewof dbTable = Inputs.select((await db.describe()).value.map(d => d.name), { label: "Table" })
+
+```
+
+```{ojs}
+//| echo: false
+
+data = db.query(`SELECT * FROM ${dbTable}`)
+Inputs.table(data)
+
+```
+
+
+# Arquero vs dplyr
+#### derive() = mutate()
+#### groupby() = group_by()
+#### rollup() = summarize()
+#### filter() = filter()
+
+## import and wrangle
+```{ojs}
+aq = require('arquero')
+
+// input from database
+raw_weighted_prices = db.sql`SELECT * FROM weighted_prices`;
+
+// convert into arquero datatable
+weighted_prices = aq.from(raw_weighted_prices);
+
+// arquero wrangling
+result = weighted_prices
+  .groupby(['acep_energy_region', 'year'])
+  .rollup({ mean_weighted_price: aq.op.mean('weighted_price') });
+
+// output
+Inputs.table(weighted_prices);
+Inputs.table(result);
+
+```
+
+
+## Plotting
+```{ojs}
+//| echo: false
+
+Plot.plot({
+  x: {domain: [2011, 2019]},
+  x: {tickFormat: d => d},
+  
+  y: {domain: [0, 60]},
+  
+  grid: true,
+  marginRight: 65,
+  
+  
+  marks: [
+ 
+    Plot.line(result,
+              {x: "year", 
+               y: "mean_weighted_price",
+               strokeWidth: 5,
+               stroke: "acep_energy_region"
+               }),
+
+    Plot.text(result, 
+        Plot.selectLast({x: "year", 
+                         y: "mean_weighted_price", 
+                         z: "acep_energy_region", 
+                         text: "acep_energy_region", 
+                         textAnchor: "start", dx: 5
+                         })),
+                         
+    Plot.tip(result, Plot.pointer({x: "year", y: "mean_weighted_price"}))
+ 
+
+         ]
+})
+
+```
+
+
+
+
+
