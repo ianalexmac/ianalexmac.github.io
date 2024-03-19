@@ -84,27 +84,27 @@
     "href": "sandbox.html",
     "title": "Sandbox",
     "section": "",
-    "text": "stdlib = require(\"@observablehq/stdlib\")\n// aq = require('arquero')\nhttps://observablehq.com/@observablehq/sqlite-starter\ndb = FileAttachment(\"data/testing.db\").sqlite()\nviewof dbTable = Inputs.select((await db.describe()).value.map(d =&gt; d.name), { label: \"Table\" })\ndata = db.query(`SELECT * FROM ${dbTable}`)\nInputs.table(data)",
+    "text": "Plot.plot({\n  x: {domain: [2011, 2019]},\n  x: {tickFormat: d =&gt; d},\n  \n  y: {domain: [0, 60]},\n  \n  grid: true,\n  marginRight: 65,\n  \n  \n  marks: [\n \n    Plot.line(result,\n              {x: \"year\", \n               y: \"mean_weighted_price\",\n               strokeWidth: 5,\n               stroke: \"acep_energy_region\"\n               }),\n\n    Plot.text(result, \n        Plot.selectLast({x: \"year\", \n                         y: \"mean_weighted_price\", \n                         z: \"acep_energy_region\", \n                         text: \"acep_energy_region\", \n                         textAnchor: \"start\", dx: 5\n                         })),\n                         \n    Plot.tip(result, Plot.pointer({x: \"year\", y: \"mean_weighted_price\"}))\n \n\n         ]\n})\n\n\n\n\n\n\n  \n\n\n\ndb = FileAttachment(\"data/testing.db\").sqlite()\nviewof dbTable = Inputs.select((await db.describe()).value.map(d =&gt; d.name), { label: \"Table\" })\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndata = db.query(`SELECT * FROM ${dbTable}`)\nInputs.table(data)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nArquero is a library for basic data wrangling in OJS using Tidyverse piping syntax. The functions behave very similarly to Dplyr, but use different verbs. Below are a few examples.\n\n\n\nderive() = mutate()\ngroupby() = group_by()\nrollup() = summarize()\nfilter() = filter()",
     "crumbs": [
       "Sandbox"
     ]
   },
   {
-    "objectID": "sandbox.html#import-and-wrangle",
-    "href": "sandbox.html#import-and-wrangle",
+    "objectID": "sandbox.html#plotting-with-observable",
+    "href": "sandbox.html#plotting-with-observable",
     "title": "Sandbox",
-    "section": "import and wrangle",
-    "text": "import and wrangle\n\naq = require('arquero')\n\n// input from database\nraw_weighted_prices = db.sql`SELECT * FROM weighted_prices`;\n\n// convert into arquero datatable\nweighted_prices = aq.from(raw_weighted_prices);\n\n// arquero wrangling\nresult = weighted_prices\n  .groupby(['acep_energy_region', 'year'])\n  .rollup({ mean_weighted_price: aq.op.mean('weighted_price') });\n\n// output\nInputs.table(weighted_prices);\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInputs.table(result);",
+    "section": "",
+    "text": "Plot.plot({\n  x: {domain: [2011, 2019]},\n  x: {tickFormat: d =&gt; d},\n  \n  y: {domain: [0, 60]},\n  \n  grid: true,\n  marginRight: 65,\n  \n  \n  marks: [\n \n    Plot.line(result,\n              {x: \"year\", \n               y: \"mean_weighted_price\",\n               strokeWidth: 5,\n               stroke: \"acep_energy_region\"\n               }),\n\n    Plot.text(result, \n        Plot.selectLast({x: \"year\", \n                         y: \"mean_weighted_price\", \n                         z: \"acep_energy_region\", \n                         text: \"acep_energy_region\", \n                         textAnchor: \"start\", dx: 5\n                         })),\n                         \n    Plot.tip(result, Plot.pointer({x: \"year\", y: \"mean_weighted_price\"}))\n \n\n         ]\n})\n\n\n\n\n\n\n  \n\n\n\ndb = FileAttachment(\"data/testing.db\").sqlite()\nviewof dbTable = Inputs.select((await db.describe()).value.map(d =&gt; d.name), { label: \"Table\" })\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndata = db.query(`SELECT * FROM ${dbTable}`)\nInputs.table(data)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nArquero is a library for basic data wrangling in OJS using Tidyverse piping syntax. The functions behave very similarly to Dplyr, but use different verbs. Below are a few examples.\n\n\n\nderive() = mutate()\ngroupby() = group_by()\nrollup() = summarize()\nfilter() = filter()",
     "crumbs": [
       "Sandbox"
     ]
   },
   {
-    "objectID": "sandbox.html#plotting",
-    "href": "sandbox.html#plotting",
+    "objectID": "sandbox.html#example-wrangling-using-arquero",
+    "href": "sandbox.html#example-wrangling-using-arquero",
     "title": "Sandbox",
-    "section": "Plotting",
-    "text": "Plotting\n\nPlot.plot({\n  x: {domain: [2011, 2019]},\n  x: {tickFormat: d =&gt; d},\n  \n  y: {domain: [0, 60]},\n  \n  grid: true,\n  marginRight: 65,\n  \n  \n  marks: [\n \n    Plot.line(result,\n              {x: \"year\", \n               y: \"mean_weighted_price\",\n               strokeWidth: 5,\n               stroke: \"acep_energy_region\"\n               }),\n\n    Plot.text(result, \n        Plot.selectLast({x: \"year\", \n                         y: \"mean_weighted_price\", \n                         z: \"acep_energy_region\", \n                         text: \"acep_energy_region\", \n                         textAnchor: \"start\", dx: 5\n                         })),\n                         \n    Plot.tip(result, Plot.pointer({x: \"year\", y: \"mean_weighted_price\"}))\n \n\n         ]\n})",
+    "section": "Example wrangling using Arquero",
+    "text": "Example wrangling using Arquero\n\naq = require('arquero')\n\n// input from database\nraw_weighted_prices = db.sql`SELECT * FROM weighted_prices`;\n\n// convert into arquero datatable\nweighted_prices = aq.from(raw_weighted_prices);\nInputs.table(weighted_prices);\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nresult = weighted_prices\n  .groupby(['acep_energy_region', 'year'])\n  .rollup({ mean_weighted_price: aq.op.mean('weighted_price') });\n\n// output\nInputs.table(result);\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nstdlib = require(\"@observablehq/stdlib\")\n// aq = require('arquero')",
     "crumbs": [
       "Sandbox"
     ]

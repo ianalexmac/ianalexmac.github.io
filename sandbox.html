@@ -185,11 +185,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#arquero-vs-dplyr" id="toc-arquero-vs-dplyr" class="nav-link active" data-scroll-target="#arquero-vs-dplyr">Arquero vs dplyr</a>
+  <li><a href="#plotting-with-observable" id="toc-plotting-with-observable" class="nav-link active" data-scroll-target="#plotting-with-observable">Plotting with Observable</a>
   <ul class="collapse">
-  <li><a href="#import-and-wrangle" id="toc-import-and-wrangle" class="nav-link" data-scroll-target="#import-and-wrangle">import and wrangle</a></li>
-  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a></li>
+  <li><a href="#explore-tables-in-the-database" id="toc-explore-tables-in-the-database" class="nav-link" data-scroll-target="#explore-tables-in-the-database">Explore Tables in the Database</a></li>
+  <li><a href="#arquero" id="toc-arquero" class="nav-link" data-scroll-target="#arquero">Arquero</a></li>
+  <li><a href="#arquero-vs-dplyr" id="toc-arquero-vs-dplyr" class="nav-link" data-scroll-target="#arquero-vs-dplyr">Arquero vs dplyr</a></li>
   </ul></li>
+  <li><a href="#example-wrangling-using-arquero" id="toc-example-wrangling-using-arquero" class="nav-link" data-scroll-target="#example-wrangling-using-arquero">Example wrangling using Arquero</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ianalexmac/ianalexmac.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -215,19 +217,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="plotting-with-observable" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-with-observable">Plotting with Observable</h2>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="12" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 11;"><span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>stdlib <span class="op">=</span> <span class="pp">require</span>(<span class="st">"@observablehq/stdlib"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">// aq = require('arquero')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="9" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 8;"><span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">2011</span><span class="op">,</span> <span class="dv">2019</span>]}<span class="op">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d}<span class="op">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">60</span>]}<span class="op">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">65</span><span class="op">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(result<span class="op">,</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>              {<span class="dt">x</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>               <span class="dt">y</span><span class="op">:</span> <span class="st">"mean_weighted_price"</span><span class="op">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>               <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>               <span class="dt">stroke</span><span class="op">:</span> <span class="st">"acep_energy_region"</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>               })<span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(result<span class="op">,</span> </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">selectLast</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">y</span><span class="op">:</span> <span class="st">"mean_weighted_price"</span><span class="op">,</span> </span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">z</span><span class="op">:</span> <span class="st">"acep_energy_region"</span><span class="op">,</span> </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">text</span><span class="op">:</span> <span class="st">"acep_energy_region"</span><span class="op">,</span> </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                         }))<span class="op">,</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                         </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">tip</span>(result<span class="op">,</span> Plot<span class="op">.</span><span class="fu">pointer</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"mean_weighted_price"</span>}))</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>         ]</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div id="ojs-cell-1" data-nodetype="declaration">
+<div id="ojs-cell-1" data-nodetype="expression">
 
 </div>
 </div>
 </div>
-<p>https://observablehq.com/<span class="citation" data-cites="observablehq/sqlite-starter">@observablehq/sqlite-starter</span></p>
+<p><br> <br> <br></p>
+<section id="explore-tables-in-the-database" class="level3">
+<h3 class="anchored" data-anchor-id="explore-tables-in-the-database">Explore Tables in the Database</h3>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="23" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 22;"><span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/testing.db"</span>)<span class="op">.</span><span class="fu">sqlite</span>()</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>viewof dbTable <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>((<span class="cf">await</span> db<span class="op">.</span><span class="fu">describe</span>())<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">name</span>)<span class="op">,</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Table"</span> })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="56" data-source-offset="-59"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 55;"><span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/testing.db"</span>)<span class="op">.</span><span class="fu">sqlite</span>()</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>viewof dbTable <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>((<span class="cf">await</span> db<span class="op">.</span><span class="fu">describe</span>())<span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">name</span>)<span class="op">,</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Table"</span> })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -244,8 +280,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="31" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 30;"><span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> db<span class="op">.</span><span class="fu">query</span>(<span class="vs">`SELECT * FROM </span><span class="sc">${</span>dbTable<span class="sc">}</span><span class="vs">`</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="64" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 63;"><span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> db<span class="op">.</span><span class="fu">query</span>(<span class="vs">`SELECT * FROM </span><span class="sc">${</span>dbTable<span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
@@ -261,38 +297,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="arquero-vs-dplyr" class="level1">
-<h1>Arquero vs dplyr</h1>
-<section id="derive-mutate" class="level4">
-<h4 class="anchored" data-anchor-id="derive-mutate">derive() = mutate()</h4>
+<p><br> <br></p>
 </section>
-<section id="groupby-group_by" class="level4">
-<h4 class="anchored" data-anchor-id="groupby-group_by">groupby() = group_by()</h4>
+<section id="arquero" class="level3">
+<h3 class="anchored" data-anchor-id="arquero">Arquero</h3>
+<p>Arquero is a library for basic data wrangling in OJS using Tidyverse piping syntax. The functions behave very similarly to Dplyr, but use different verbs. Below are a few examples.</p>
 </section>
-<section id="rollup-summarize" class="level4">
-<h4 class="anchored" data-anchor-id="rollup-summarize">rollup() = summarize()</h4>
+<section id="arquero-vs-dplyr" class="level3">
+<h3 class="anchored" data-anchor-id="arquero-vs-dplyr">Arquero vs dplyr</h3>
+<pre><code>derive() = mutate()
+groupby() = group_by()
+rollup() = summarize()
+filter() = filter()</code></pre>
 </section>
-<section id="filter-filter" class="level4">
-<h4 class="anchored" data-anchor-id="filter-filter">filter() = filter()</h4>
 </section>
-<section id="import-and-wrangle" class="level2">
-<h2 class="anchored" data-anchor-id="import-and-wrangle">import and wrangle</h2>
+<section id="example-wrangling-using-arquero" class="level2">
+<h2 class="anchored" data-anchor-id="example-wrangling-using-arquero">Example wrangling using Arquero</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4" data-startfrom="45" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 44;"><span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>aq <span class="op">=</span> <span class="pp">require</span>(<span class="st">'arquero'</span>)</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">// input from database</span></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>raw_weighted_prices <span class="op">=</span> db<span class="op">.</span><span class="fu">sql</span><span class="vs">`SELECT * FROM weighted_prices`</span><span class="op">;</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">// convert into arquero datatable</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>weighted_prices <span class="op">=</span> aq<span class="op">.</span><span class="fu">from</span>(raw_weighted_prices)<span class="op">;</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">// arquero wrangling</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> weighted_prices</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">groupby</span>([<span class="st">'acep_energy_region'</span><span class="op">,</span> <span class="st">'year'</span>])</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rollup</span>({ <span class="dt">mean_weighted_price</span><span class="op">:</span> aq<span class="op">.</span><span class="at">op</span><span class="op">.</span><span class="fu">mean</span>(<span class="st">'weighted_price'</span>) })<span class="op">;</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co">// output</span></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(weighted_prices)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5" data-startfrom="85" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 84;"><span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>aq <span class="op">=</span> <span class="pp">require</span>(<span class="st">'arquero'</span>)</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="co">// input from database</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>raw_weighted_prices <span class="op">=</span> db<span class="op">.</span><span class="fu">sql</span><span class="vs">`SELECT * FROM weighted_prices`</span><span class="op">;</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="co">// convert into arquero datatable</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>weighted_prices <span class="op">=</span> aq<span class="op">.</span><span class="fu">from</span>(raw_weighted_prices)<span class="op">;</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(weighted_prices)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -316,19 +345,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-4" data-nodetype="declaration">
+<div id="ojs-cell-4-4" data-nodetype="expression">
 
 </div>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb6" data-startfrom="95" data-source-offset="-245"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 94;"><span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> weighted_prices</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">groupby</span>([<span class="st">'acep_energy_region'</span><span class="op">,</span> <span class="st">'year'</span>])</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rollup</span>({ <span class="dt">mean_weighted_price</span><span class="op">:</span> aq<span class="op">.</span><span class="at">op</span><span class="op">.</span><span class="fu">mean</span>(<span class="st">'weighted_price'</span>) })<span class="op">;</span></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="co">// output</span></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(result)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-4-5" data-nodetype="expression">
+<div id="ojs-cell-4-5" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb5" data-startfrom="60" data-source-offset="-390"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 59;"><span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(result)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-6" data-nodetype="expression">
@@ -337,56 +371,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</section>
-<section id="plotting" class="level2">
-<h2 class="anchored" data-anchor-id="plotting">Plotting</h2>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="67" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 66;"><span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">2011</span><span class="op">,</span> <span class="dv">2019</span>]}<span class="op">,</span></span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> d}<span class="op">,</span></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">60</span>]}<span class="op">,</span></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">65</span><span class="op">,</span></span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(result<span class="op">,</span></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>              {<span class="dt">x</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> </span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>               <span class="dt">y</span><span class="op">:</span> <span class="st">"mean_weighted_price"</span><span class="op">,</span></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>               <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>               <span class="dt">stroke</span><span class="op">:</span> <span class="st">"acep_energy_region"</span></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>               })<span class="op">,</span></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(result<span class="op">,</span> </span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">selectLast</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> </span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">y</span><span class="op">:</span> <span class="st">"mean_weighted_price"</span><span class="op">,</span> </span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">z</span><span class="op">:</span> <span class="st">"acep_energy_region"</span><span class="op">,</span> </span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">text</span><span class="op">:</span> <span class="st">"acep_energy_region"</span><span class="op">,</span> </span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>                         <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">5</span></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>                         }))<span class="op">,</span></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>                         </span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">tip</span>(result<span class="op">,</span> Plot<span class="op">.</span><span class="fu">pointer</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"mean_weighted_price"</span>}))</span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>         ]</span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="106" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 105;"><span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>stdlib <span class="op">=</span> <span class="pp">require</span>(<span class="st">"@observablehq/stdlib"</span>)</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="co">// aq = require('arquero')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div id="ojs-cell-5" data-nodetype="expression">
+<div id="ojs-cell-5" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxuc3RkbGliID0gcmVxdWlyZShcIkBvYnNlcnZhYmxlaHEvc3RkbGliXCIpXG4vLyBhcSA9IHJlcXVpcmUoJ2FycXVlcm8nKVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmRiID0gRmlsZUF0dGFjaG1lbnQoXCJkYXRhL3Rlc3RpbmcuZGJcIikuc3FsaXRlKClcbnZpZXdvZiBkYlRhYmxlID0gSW5wdXRzLnNlbGVjdCgoYXdhaXQgZGIuZGVzY3JpYmUoKSkudmFsdWUubWFwKGQgPT4gZC5uYW1lKSwgeyBsYWJlbDogXCJUYWJsZVwiIH0pXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuZGF0YSA9IGRiLnF1ZXJ5KGBTRUxFQ1QgKiBGUk9NICR7ZGJUYWJsZX1gKVxuSW5wdXRzLnRhYmxlKGRhdGEpXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImFxID0gcmVxdWlyZSgnYXJxdWVybycpXG5cbi8vIGlucHV0IGZyb20gZGF0YWJhc2VcbnJhd193ZWlnaHRlZF9wcmljZXMgPSBkYi5zcWxgU0VMRUNUICogRlJPTSB3ZWlnaHRlZF9wcmljZXNgO1xuXG4vLyBjb252ZXJ0IGludG8gYXJxdWVybyBkYXRhdGFibGVcbndlaWdodGVkX3ByaWNlcyA9IGFxLmZyb20ocmF3X3dlaWdodGVkX3ByaWNlcyk7XG5cbi8vIGFycXVlcm8gd3JhbmdsaW5nXG5yZXN1bHQgPSB3ZWlnaHRlZF9wcmljZXNcbiAgLmdyb3VwYnkoWydhY2VwX2VuZXJneV9yZWdpb24nLCAneWVhciddKVxuICAucm9sbHVwKHsgbWVhbl93ZWlnaHRlZF9wcmljZTogYXEub3AubWVhbignd2VpZ2h0ZWRfcHJpY2UnKSB9KTtcblxuLy8gb3V0cHV0XG5JbnB1dHMudGFibGUod2VpZ2h0ZWRfcHJpY2VzKTtcbklucHV0cy50YWJsZShyZXN1bHQpO1xuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcblBsb3QucGxvdCh7XG4gIHg6IHtkb21haW46IFsyMDExLCAyMDE5XX0sXG4gIHg6IHt0aWNrRm9ybWF0OiBkID0+IGR9LFxuICBcbiAgeToge2RvbWFpbjogWzAsIDYwXX0sXG4gIFxuICBncmlkOiB0cnVlLFxuICBtYXJnaW5SaWdodDogNjUsXG4gIFxuICBcbiAgbWFya3M6IFtcbiBcbiAgICBQbG90LmxpbmUocmVzdWx0LFxuICAgICAgICAgICAgICB7eDogXCJ5ZWFyXCIsIFxuICAgICAgICAgICAgICAgeTogXCJtZWFuX3dlaWdodGVkX3ByaWNlXCIsXG4gICAgICAgICAgICAgICBzdHJva2VXaWR0aDogNSxcbiAgICAgICAgICAgICAgIHN0cm9rZTogXCJhY2VwX2VuZXJneV9yZWdpb25cIlxuICAgICAgICAgICAgICAgfSksXG5cbiAgICBQbG90LnRleHQocmVzdWx0LCBcbiAgICAgICAgUGxvdC5zZWxlY3RMYXN0KHt4OiBcInllYXJcIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgeTogXCJtZWFuX3dlaWdodGVkX3ByaWNlXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgIHo6IFwiYWNlcF9lbmVyZ3lfcmVnaW9uXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgIHRleHQ6IFwiYWNlcF9lbmVyZ3lfcmVnaW9uXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgIHRleHRBbmNob3I6IFwic3RhcnRcIiwgZHg6IDVcbiAgICAgICAgICAgICAgICAgICAgICAgICB9KSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgXG4gICAgUGxvdC50aXAocmVzdWx0LCBQbG90LnBvaW50ZXIoe3g6IFwieWVhclwiLCB5OiBcIm1lYW5fd2VpZ2h0ZWRfcHJpY2VcIn0pKVxuIFxuXG4gICAgICAgICBdXG59KVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2RiVGFibGUnKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuUGxvdC5wbG90KHtcbiAgeDoge2RvbWFpbjogWzIwMTEsIDIwMTldfSxcbiAgeDoge3RpY2tGb3JtYXQ6IGQgPT4gZH0sXG4gIFxuICB5OiB7ZG9tYWluOiBbMCwgNjBdfSxcbiAgXG4gIGdyaWQ6IHRydWUsXG4gIG1hcmdpblJpZ2h0OiA2NSxcbiAgXG4gIFxuICBtYXJrczogW1xuIFxuICAgIFBsb3QubGluZShyZXN1bHQsXG4gICAgICAgICAgICAgIHt4OiBcInllYXJcIiwgXG4gICAgICAgICAgICAgICB5OiBcIm1lYW5fd2VpZ2h0ZWRfcHJpY2VcIixcbiAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoOiA1LFxuICAgICAgICAgICAgICAgc3Ryb2tlOiBcImFjZXBfZW5lcmd5X3JlZ2lvblwiXG4gICAgICAgICAgICAgICB9KSxcblxuICAgIFBsb3QudGV4dChyZXN1bHQsIFxuICAgICAgICBQbG90LnNlbGVjdExhc3Qoe3g6IFwieWVhclwiLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICB5OiBcIm1lYW5fd2VpZ2h0ZWRfcHJpY2VcIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgejogXCJhY2VwX2VuZXJneV9yZWdpb25cIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgdGV4dDogXCJhY2VwX2VuZXJneV9yZWdpb25cIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgdGV4dEFuY2hvcjogXCJzdGFydFwiLCBkeDogNVxuICAgICAgICAgICAgICAgICAgICAgICAgIH0pKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICBcbiAgICBQbG90LnRpcChyZXN1bHQsIFBsb3QucG9pbnRlcih7eDogXCJ5ZWFyXCIsIHk6IFwibWVhbl93ZWlnaHRlZF9wcmljZVwifSkpXG4gXG5cbiAgICAgICAgIF1cbn0pXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIGh0dHBzOi8vb2JzZXJ2YWJsZWhxLmNvbS9Ab2JzZXJ2YWJsZWhxL3NxbGl0ZS1zdGFydGVyXG5cblxuZGIgPSBGaWxlQXR0YWNobWVudChcImRhdGEvdGVzdGluZy5kYlwiKS5zcWxpdGUoKVxudmlld29mIGRiVGFibGUgPSBJbnB1dHMuc2VsZWN0KChhd2FpdCBkYi5kZXNjcmliZSgpKS52YWx1ZS5tYXAoZCA9PiBkLm5hbWUpLCB7IGxhYmVsOiBcIlRhYmxlXCIgfSlcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG5kYXRhID0gZGIucXVlcnkoYFNFTEVDVCAqIEZST00gJHtkYlRhYmxlfWApXG5JbnB1dHMudGFibGUoZGF0YSlcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiYXEgPSByZXF1aXJlKCdhcnF1ZXJvJylcblxuLy8gaW5wdXQgZnJvbSBkYXRhYmFzZVxucmF3X3dlaWdodGVkX3ByaWNlcyA9IGRiLnNxbGBTRUxFQ1QgKiBGUk9NIHdlaWdodGVkX3ByaWNlc2A7XG5cbi8vIGNvbnZlcnQgaW50byBhcnF1ZXJvIGRhdGF0YWJsZVxud2VpZ2h0ZWRfcHJpY2VzID0gYXEuZnJvbShyYXdfd2VpZ2h0ZWRfcHJpY2VzKTtcbklucHV0cy50YWJsZSh3ZWlnaHRlZF9wcmljZXMpO1xuXG4vLyBhcnF1ZXJvIHdyYW5nbGluZ1xucmVzdWx0ID0gd2VpZ2h0ZWRfcHJpY2VzXG4gIC5ncm91cGJ5KFsnYWNlcF9lbmVyZ3lfcmVnaW9uJywgJ3llYXInXSlcbiAgLnJvbGx1cCh7IG1lYW5fd2VpZ2h0ZWRfcHJpY2U6IGFxLm9wLm1lYW4oJ3dlaWdodGVkX3ByaWNlJykgfSk7XG5cbi8vIG91dHB1dFxuSW5wdXRzLnRhYmxlKHJlc3VsdCk7XG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxuc3RkbGliID0gcmVxdWlyZShcIkBvYnNlcnZhYmxlaHEvc3RkbGliXCIpXG4vLyBhcSA9IHJlcXVpcmUoJ2FycXVlcm8nKVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2RiVGFibGUnKSJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
