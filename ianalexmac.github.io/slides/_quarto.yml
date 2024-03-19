@@ -1,7 +1,7 @@
 # idea for separate _quarto.yml for redering slides from 
 # https://github.com/ShKlinkenberg/statistics-lectures/blob/master/courses/_quarto.yml
 # author: "Sharon Klinkenberg"
-institute: "{{cookiecutter.full_name}}"
+institute: "Ian MacDougall"
 format:
   html:
     toc: true
