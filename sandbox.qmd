@@ -1,68 +1,10 @@
 ---
 title: "Sandbox"
-subtite: "Come play in the mud"
 output:
   quarto::quarto_html:
     pre_processor: quarto::observable
 ---
-
-
-
-```{ojs}
-//| echo: false
-
-stdlib = require("@observablehq/stdlib")
-// aq = require('arquero')
-
-```
-
-https://observablehq.com/@observablehq/sqlite-starter
-```{ojs}
-//| echo: false
-
-db = FileAttachment("data/testing.db").sqlite()
-viewof dbTable = Inputs.select((await db.describe()).value.map(d => d.name), { label: "Table" })
-
-```
-
-```{ojs}
-//| echo: false
-
-data = db.query(`SELECT * FROM ${dbTable}`)
-Inputs.table(data)
-
-```
-
-
-# Arquero vs dplyr
-#### derive() = mutate()
-#### groupby() = group_by()
-#### rollup() = summarize()
-#### filter() = filter()
-
-## import and wrangle
-```{ojs}
-aq = require('arquero')
-
-// input from database
-raw_weighted_prices = db.sql`SELECT * FROM weighted_prices`;
-
-// convert into arquero datatable
-weighted_prices = aq.from(raw_weighted_prices);
-
-// arquero wrangling
-result = weighted_prices
-  .groupby(['acep_energy_region', 'year'])
-  .rollup({ mean_weighted_price: aq.op.mean('weighted_price') });
-
-// output
-Inputs.table(weighted_prices);
-Inputs.table(result);
-
-```
-
-
-## Plotting
+## Plotting with Observable
 ```{ojs}
 //| echo: false
 
@@ -100,6 +42,74 @@ Plot.plot({
 })
 
 ```
+
+<br>
+<br>
+<br>
+
+### Explore Tables in the Database
+```{ojs}
+//| echo: false
+// https://observablehq.com/@observablehq/sqlite-starter
+
+
+db = FileAttachment("data/testing.db").sqlite()
+viewof dbTable = Inputs.select((await db.describe()).value.map(d => d.name), { label: "Table" })
+
+```
+
+```{ojs}
+//| echo: false
+
+data = db.query(`SELECT * FROM ${dbTable}`)
+Inputs.table(data)
+
+```
+
+<br>
+<br>
+
+### Arquero
+Arquero is a library for basic data wrangling in OJS using Tidyverse piping syntax. The functions behave very similarly to Dplyr, but use different verbs. Below are a few examples.
+
+### Arquero vs dplyr
+```
+derive() = mutate()
+groupby() = group_by()
+rollup() = summarize()
+filter() = filter()
+```
+
+## Example wrangling using Arquero
+```{ojs}
+aq = require('arquero')
+
+// input from database
+raw_weighted_prices = db.sql`SELECT * FROM weighted_prices`;
+
+// convert into arquero datatable
+weighted_prices = aq.from(raw_weighted_prices);
+Inputs.table(weighted_prices);
+
+// arquero wrangling
+result = weighted_prices
+  .groupby(['acep_energy_region', 'year'])
+  .rollup({ mean_weighted_price: aq.op.mean('weighted_price') });
+
+// output
+Inputs.table(result);
+
+```
+
+
+```{ojs}
+//| echo: false
+
+stdlib = require("@observablehq/stdlib")
+// aq = require('arquero')
+
+```
+
 
 
 
