@@ -30,6 +30,9 @@ website:
       - href: about.qmd
         text: About Us
         icon: dot
+      - href: sandbox.qmd
+        text: Sandbox
+        icon: dot
       - href: slides/presentation_demo.qmd
         text: Example Presentation
         icon: dot
