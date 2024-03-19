@@ -84,7 +84,7 @@
     "href": "sandbox.html",
     "title": "Sandbox",
     "section": "",
-    "text": "stdlib = require(\"@observablehq/stdlib\")\n// aq = require('arquero')\nhttps://observablehq.com/@observablehq/sqlite-starter\ndb = FileAttachment(\"testing.db\").sqlite()\nviewof dbTable = Inputs.select((await db.describe()).value.map(d =&gt; d.name), { label: \"Table\" })\ndata = db.query(`SELECT * FROM ${dbTable}`)\nInputs.table(data)",
+    "text": "stdlib = require(\"@observablehq/stdlib\")\n// aq = require('arquero')\nhttps://observablehq.com/@observablehq/sqlite-starter\ndb = FileAttachment(\"data/testing.db\").sqlite()\nviewof dbTable = Inputs.select((await db.describe()).value.map(d =&gt; d.name), { label: \"Table\" })\ndata = db.query(`SELECT * FROM ${dbTable}`)\nInputs.table(data)",
     "crumbs": [
       "Sandbox"
     ]
