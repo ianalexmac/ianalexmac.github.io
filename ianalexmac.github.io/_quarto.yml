@@ -3,9 +3,9 @@ project:
   
 website: 
   page-navigation: true
-  title: {{cookiecutter.project_name}} 
-  site-url: "https://{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}/" 
-  repo-url: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}} 
+  title: ianalexmac.github.io 
+  site-url: https://ianalexmac.github.io/ 
+  repo-url: https://github.com/ianalexmac/ianalexmac.github.io
   repo-actions: [issue]
   
   page-footer:
@@ -17,12 +17,9 @@ website:
     pinned: true
     align: center
     tools: 
-      - icon: globe
-        href: https://cookiecutter.readthedocs.io/en/stable/
-        text: "Cookiecutter Project Templates"
       - icon: github
-        href: https://github.com/{{cookiecutter.github_username}}
-        text: "{{cookiecutter.full_name}}'s GitHub"      
+        href: https://github.com/ianalexmac.github.io
+        text: "ianalexmac's GitHub"      
 
     style: "docked"
     search: true
