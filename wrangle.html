@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ianalexmac.github.io</title>
+<title>ianalexmac.github.io - Data Wrangling in Observable</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,7 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./slides/presentation_demo.html" rel="next">
+<link href="./sandbox.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,6 +103,8 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -82,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./wrangle.html">Wrangle</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -113,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -133,7 +170,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./wrangle.html" class="sidebar-item-text sidebar-link"><i class="bi bi-dot" role="img">
+  <a href="./wrangle.html" class="sidebar-item-text sidebar-link active"><i class="bi bi-dot" role="img">
 </i> 
  <span class="menu-text">Wrangle</span></a>
   </div>
@@ -155,10 +192,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
-  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing!</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">Section 1</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">Section 2</a></li>
+  <li><a href="#raw-load-from-sqlite-db-in-repo" id="toc-raw-load-from-sqlite-db-in-repo" class="nav-link active" data-scroll-target="#raw-load-from-sqlite-db-in-repo">raw load from SQLite db in repo</a></li>
+  <li><a href="#tidy.js" id="toc-tidy.js" class="nav-link" data-scroll-target="#tidy.js">Tidy.js</a>
+  <ul class="collapse">
+  <li><a href="#renaming-columns" id="toc-renaming-columns" class="nav-link" data-scroll-target="#renaming-columns">Renaming columns</a></li>
+  <li><a href="#reshaping-data" id="toc-reshaping-data" class="nav-link" data-scroll-target="#reshaping-data">Reshaping data</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ianalexmac/ianalexmac.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -167,8 +206,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ianalexmac.github.io</h1>
-<p class="subtitle lead">A Website Made with Quarto</p>
+<h1 class="title">Data Wrangling in Observable</h1>
 </div>
 
 
@@ -185,35 +223,162 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level2">
-<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
-<p>Here is the place to put your welcome message</p>
-</section>
-<section id="testing" class="level2">
-<h2 class="anchored" data-anchor-id="testing">Testing!</h2>
-</section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">Section 1</h2>
-<p>Put the Section 1 text here</p>
-</section>
-<section id="section-2" class="level2">
-<h2 class="anchored" data-anchor-id="section-2">Section 2</h2>
-<p>This is a stoat</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><a href="https://www.adfg.alaska.gov/static/education/wns/weasels.pdf" title="See Alaskan Weasels"><img src="https://britishwildlifecentre.co.uk/wp-content/uploads/2018/12/New-Website-Stoat-Pt-07-18.jpg" class="img-fluid quarto-figure quarto-figure-left figure-img" alt="Stoat" width="200"></a></p>
-</figure>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="12" data-source-offset="-20"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 11;"><span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>stdlib <span class="op">=</span> <span class="pp">require</span>(<span class="st">"@observablehq/stdlib"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {tidy<span class="op">,</span> groupBy<span class="op">,</span> rename<span class="op">,</span> summarize<span class="op">,</span> sum<span class="op">,</span> mutate<span class="op">,</span> select<span class="op">,</span> n<span class="op">,</span> nDistinct<span class="op">,</span> mean<span class="op">,</span> filter<span class="op">,</span> pivotWider<span class="op">,</span> pivotLonger} <span class="im">from</span> <span class="st">"@pbeshai/tidyjs"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
 </div>
-<figcaption>This is a stoat.</figcaption>
-</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="20" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 19;"><span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/testing.db"</span>)<span class="op">.</span><span class="fu">sqlite</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<section id="raw-load-from-sqlite-db-in-repo" class="level2">
+<h2 class="anchored" data-anchor-id="raw-load-from-sqlite-db-in-repo">raw load from SQLite db in repo</h2>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="29" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 28;"><span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>import_prices <span class="op">=</span> db<span class="op">.</span><span class="fu">query</span>(<span class="vs">`SELECT * FROM prices`</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(import_prices)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="tidy.js" class="level1">
+<h1>Tidy.js</h1>
+<section id="renaming-columns" class="level3">
+<h3 class="anchored" data-anchor-id="renaming-columns">Renaming columns</h3>
+<p>Nice and easy, tidy.js uses <code>rename</code> to rename columns</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" data-startfrom="38" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 37;"><span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>raw_prices  <span class="op">=</span>  <span class="fu">tidy</span>(import_prices<span class="op">,</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">rename</span>({ <span class="st">'residential_price_kwh_2021_dollars'</span><span class="op">:</span> <span class="st">'residential'</span><span class="op">,</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>                                <span class="st">'commercial_price_kwh_2021_dollars'</span><span class="op">:</span> <span class="st">'commercial'</span><span class="op">,</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>                                <span class="st">'other_price_kwh_2021_dollars'</span><span class="op">:</span> <span class="st">'other'</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>                            }))</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(raw_prices)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="reshaping-data" class="level3">
+<h3 class="anchored" data-anchor-id="reshaping-data">Reshaping data</h3>
+<p>tidy.js rocks</p>
+<div class="cell" data-eval="false">
+<div class="sourceCode cell-code" id="cb5" data-startfrom="50" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 49;"><span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co">// tidy.js pivot example code</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  data<span class="op">,</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivotLonger</span>({</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="dt">cols</span><span class="op">:</span> [<span class="st">'col1'</span><span class="op">,</span> <span class="st">'col2'</span><span class="op">,</span> <span class="st">'col3'</span><span class="op">,</span> <span class="st">'col4'</span><span class="op">,</span> <span class="st">'col5'</span>]<span class="op">,</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    <span class="dt">namesTo</span><span class="op">:</span> <span class="st">'new_column_name'</span><span class="op">,</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    <span class="dt">valuesTo</span><span class="op">:</span> <span class="st">'columnn_value'</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" data-startfrom="66" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 65;"><span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>long_prices  <span class="op">=</span> <span class="fu">tidy</span>(</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>                raw_prices<span class="op">,</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>                <span class="fu">pivotLonger</span>({</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">cols</span><span class="op">:</span> [<span class="st">'residential'</span><span class="op">,</span> <span class="st">'commercial'</span><span class="op">,</span> <span class="st">'other'</span>]<span class="op">,</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">namesTo</span><span class="op">:</span> <span class="st">'sector'</span><span class="op">,</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">valuesTo</span><span class="op">:</span> <span class="st">'price'</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>                })<span class="op">,</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>                <span class="fu">pivotLonger</span>({</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">cols</span><span class="op">:</span> [<span class="st">'residential_customers'</span><span class="op">,</span> </span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'commercial_customers'</span><span class="op">,</span> </span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>                           <span class="st">'other_customers'</span>]<span class="op">,</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">namesTo</span><span class="op">:</span> <span class="st">'customer_type'</span><span class="op">,</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">valuesTo</span><span class="op">:</span> <span class="st">'customers'</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>                })<span class="op">,</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>                <span class="fu">select</span>([</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'year'</span><span class="op">,</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'reporting_name'</span><span class="op">,</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'acep_energy_region'</span><span class="op">,</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'sector'</span><span class="op">,</span></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'price'</span><span class="op">,</span></span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'customers'</span><span class="op">,</span></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'total_customers'</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>                ])</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>Inputs<span class="op">.</span><span class="fu">table</span>(long_prices)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuLy8gYnVpbGQgYSBsaWJyYXJ5XG5zdGRsaWIgPSByZXF1aXJlKFwiQG9ic2VydmFibGVocS9zdGRsaWJcIilcblxuaW1wb3J0IHt0aWR5LCBncm91cEJ5LCByZW5hbWUsIHN1bW1hcml6ZSwgc3VtLCBtdXRhdGUsIHNlbGVjdCwgbiwgbkRpc3RpbmN0LCBtZWFuLCBmaWx0ZXIsIHBpdm90V2lkZXIsIHBpdm90TG9uZ2VyfSBmcm9tIFwiQHBiZXNoYWkvdGlkeWpzXCJcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiZGIgPSBGaWxlQXR0YWNobWVudChcImRhdGEvdGVzdGluZy5kYlwiKS5zcWxpdGUoKVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmltcG9ydF9wcmljZXMgPSBkYi5xdWVyeShgU0VMRUNUICogRlJPTSBwcmljZXNgKVxuSW5wdXRzLnRhYmxlKGltcG9ydF9wcmljZXMpXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InJhd19wcmljZXMgID0gIHRpZHkoaW1wb3J0X3ByaWNlcyxcbiAgICAgICAgICAgICAgICAgICAgcmVuYW1lKHsgJ3Jlc2lkZW50aWFsX3ByaWNlX2t3aF8yMDIxX2RvbGxhcnMnOiAncmVzaWRlbnRpYWwnLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAnY29tbWVyY2lhbF9wcmljZV9rd2hfMjAyMV9kb2xsYXJzJzogJ2NvbW1lcmNpYWwnLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAnb3RoZXJfcHJpY2Vfa3doXzIwMjFfZG9sbGFycyc6ICdvdGhlcidcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KSlcblxuSW5wdXRzLnRhYmxlKHJhd19wcmljZXMpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmxvbmdfcHJpY2VzICA9IHRpZHkoXG4gICAgICAgICAgICAgICAgcmF3X3ByaWNlcyxcbiAgICAgICAgICAgICAgICBwaXZvdExvbmdlcih7XG4gICAgICAgICAgICAgICAgICAgIGNvbHM6IFsncmVzaWRlbnRpYWwnLCAnY29tbWVyY2lhbCcsICdvdGhlciddLFxuICAgICAgICAgICAgICAgICAgICBuYW1lc1RvOiAnc2VjdG9yJyxcbiAgICAgICAgICAgICAgICAgICAgdmFsdWVzVG86ICdwcmljZSdcbiAgICAgICAgICAgICAgICB9KSxcbiAgICAgICAgICAgICAgICBwaXZvdExvbmdlcih7XG4gICAgICAgICAgICAgICAgICAgIGNvbHM6IFsncmVzaWRlbnRpYWxfY3VzdG9tZXJzJywgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAnY29tbWVyY2lhbF9jdXN0b21lcnMnLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICdvdGhlcl9jdXN0b21lcnMnXSxcbiAgICAgICAgICAgICAgICAgICAgbmFtZXNUbzogJ2N1c3RvbWVyX3R5cGUnLFxuICAgICAgICAgICAgICAgICAgICB2YWx1ZXNUbzogJ2N1c3RvbWVycydcbiAgICAgICAgICAgICAgICB9KSxcbiAgICAgICAgICAgICAgICBzZWxlY3QoW1xuICAgICAgICAgICAgICAgICAgICAneWVhcicsXG4gICAgICAgICAgICAgICAgICAgICdyZXBvcnRpbmdfbmFtZScsXG4gICAgICAgICAgICAgICAgICAgICdhY2VwX2VuZXJneV9yZWdpb24nLFxuICAgICAgICAgICAgICAgICAgICAnc2VjdG9yJyxcbiAgICAgICAgICAgICAgICAgICAgJ3ByaWNlJyxcbiAgICAgICAgICAgICAgICAgICAgJ2N1c3RvbWVycycsXG4gICAgICAgICAgICAgICAgICAgICd0b3RhbF9jdXN0b21lcnMnXG4gICAgICAgICAgICAgICAgXSlcbiAgICAgICAgICAgIClcblxuXG5JbnB1dHMudGFibGUobG9uZ19wcmljZXMpXG5cbiJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -769,10 +934,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./sandbox.html" class="pagination-link" aria-label="Sandbox">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Sandbox</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="About Us">
-        <span class="nav-page-text">About Us</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./slides/presentation_demo.html" class="pagination-link" aria-label="Example Presentation">
+        <span class="nav-page-text">Example Presentation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

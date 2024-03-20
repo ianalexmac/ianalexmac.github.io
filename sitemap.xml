@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ianalexmac.github.io/index.html</loc>
-    <lastmod>2024-03-19T21:04:57.835Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ianalexmac.github.io/about.html</loc>
-    <lastmod>2024-03-19T21:04:57.831Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ianalexmac.github.io/slides/presentation_demo.html</loc>
-    <lastmod>2024-03-19T21:04:57.835Z</lastmod>
+    <loc>https://ianalexmac.github.io/wrangle.html</loc>
+    <lastmod>2024-03-20T20:24:11.298Z</lastmod>
   </url>
   <url>
     <loc>https://ianalexmac.github.io/sandbox.html</loc>
-    <lastmod>2024-03-19T21:04:57.835Z</lastmod>
+    <lastmod>2024-03-20T20:24:11.298Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ianalexmac.github.io/slides/presentation_demo.html</loc>
+    <lastmod>2024-03-20T20:24:11.298Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ianalexmac.github.io/about.html</loc>
+    <lastmod>2024-03-20T20:24:11.294Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ianalexmac.github.io/index.html</loc>
+    <lastmod>2024-03-20T20:24:11.298Z</lastmod>
   </url>
 </urlset>
