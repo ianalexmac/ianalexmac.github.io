@@ -33,6 +33,9 @@ website:
       - href: sandbox.qmd
         text: Sandbox
         icon: dot
+      - href: wrangle.qmd
+        text: Wrangle
+        icon: dot
       - href: slides/presentation_demo.qmd
         text: Example Presentation
         icon: dot

@@ -1,0 +1,98 @@
+---
+title: "Data Wrangling in Observable"
+output: 
+    quarto::quarto_html:
+        pre_processor: quarto::observable
+---
+
+```{ojs}
+//| echo: false
+
+// build a library
+stdlib = require("@observablehq/stdlib")
+
+import {tidy, groupBy, rename, summarize, sum, mutate, select, n, nDistinct, mean, filter, pivotWider, pivotLonger} from "@pbeshai/tidyjs"
+
+```
+
+
+```{ojs}
+//| echo: false
+db = FileAttachment("data/testing.db").sqlite()
+
+```
+
+## raw load from SQLite db in repo
+```{ojs}
+//| echo: false
+
+import_prices = db.query(`SELECT * FROM prices`)
+Inputs.table(import_prices)
+
+```
+
+# Tidy.js
+### Renaming columns
+Nice and easy, tidy.js uses `rename` to rename columns  
+```{ojs}
+raw_prices  =  tidy(import_prices,
+                    rename({ 'residential_price_kwh_2021_dollars': 'residential',
+                                'commercial_price_kwh_2021_dollars': 'commercial',
+                                'other_price_kwh_2021_dollars': 'other'
+                            }))
+
+Inputs.table(raw_prices)
+```
+
+### Reshaping data
+tidy.js rocks
+```{ojs}
+//| eval: false  
+
+// tidy.js pivot example code
+tidy(
+  data,
+  pivotLonger({
+    cols: ['col1', 'col2', 'col3', 'col4', 'col5'],
+    namesTo: 'new_column_name',
+    valuesTo: 'columnn_value'
+  })
+)
+
+```
+
+```{ojs}
+
+long_prices  = tidy(
+                raw_prices,
+                pivotLonger({
+                    cols: ['residential', 'commercial', 'other'],
+                    namesTo: 'sector',
+                    valuesTo: 'price'
+                }),
+                pivotLonger({
+                    cols: ['residential_customers', 
+                           'commercial_customers', 
+                           'other_customers'],
+                    namesTo: 'customer_type',
+                    valuesTo: 'customers'
+                }),
+                select([
+                    'year',
+                    'reporting_name',
+                    'acep_energy_region',
+                    'sector',
+                    'price',
+                    'customers',
+                    'total_customers'
+                ])
+            )
+
+
+Inputs.table(long_prices)
+
+```
+
+
+
+
