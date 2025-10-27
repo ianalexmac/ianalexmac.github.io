@@ -1,9 +1,15 @@
 ---
 layout: post
-title: 'Project One'
+title: 'FNSB Energy Burden Esimator'
 ---
-Mauris velit metus, tempor gravida nulla eget, auctor accumsan tellus. Curabitur volutpat sed dolor quis tempus. In scelerisque aliquam felis at tincidunt. Proin non augue fringilla, [pretium justo vitae](#), maximus dui. Nunc ipsum nisi, fermentum sit amet volutpat cursus, sodales ac nisl. Quisque nec tellus sem. Cras pharetra felis non quam mollis, nec efficitur lectus aliquet. Maecenas ipsum felis, eleifend nec [semper venenatis](#), consequat ut nunc. Donec est augue, facilisis quis placerat sed, imperdiet sit amet neque. Maecenas nec risus metus. Nunc non condimentum ipsum. Phasellus consectetur dapibus massa, convallis iaculis nisi vestibulum id. Phasellus et fringilla augue. Donec consequat dui ut rutrum elementum. Aenean nisi arcu, ornare eu lacus vel, faucibus tempor tortor.
+In 2024, ACEP researchers Jesse Kaczmarski, Dominique Pride, and Erin Trochin published a paper on the energy burden experienced within the Fairbanks North Star Borough ([10.5281/zenodo.12575185](https://doi.org/10.5281/zenodo.12575185)). Energy burden was analyzed across census tracts within the borough, which made for some compelling maps. In an effort to expand these map products, J. Kaczmarski and I. MacDougall created an online web map of the data.
 
-{% include image.html url="http://www.gratisography.com" image="projects/proj-1/dog.jpg" %}
+- A sidebar with sliders allowed users to change the price of energy sources, which rendered dynamically on the map.
+- A clickable tooltip displayed summary information about the census tract.
+- Additional layers, such as city and military boundaries could be added using checkboxes.
+- Download buttons allowed users to download data rendered from the input sliders prices at the moment of click, complete with a data dictionary and readme file, all bundled into a .zip file.
+- Code repository was tagged and given a [DOI](https://doi.org/10.5281/zenodo.17372895)
 
-{% include image.html url="http://www.gratisography.com" image="projects/proj-1/wall.jpg" %}
+{% include image.html url="https://fnsb-energy-burden.acep.uaf.edu" image="projects/proj-1/short.gif" %}
+<!--
+{% include image.html url="http://www.gratisography.com" image="projects/proj-1/wall.jpg" %}-->
