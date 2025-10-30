@@ -11,5 +11,4 @@ In 2024, ACEP researchers Jesse Kaczmarski, Dominique Pride, and Erin Trochin pu
 - Code repository was tagged and given a [DOI](https://doi.org/10.5281/zenodo.17372895)
 
 {% include image.html url="https://fnsb-energy-burden.acep.uaf.edu" image="projects/proj-1/short.gif" %}
-<!--
-{% include image.html url="http://www.gratisography.com" image="projects/proj-1/wall.jpg" %}-->
+
